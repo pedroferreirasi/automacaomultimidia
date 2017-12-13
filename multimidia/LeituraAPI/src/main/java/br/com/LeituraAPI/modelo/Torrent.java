@@ -52,7 +52,7 @@ public class Torrent implements Serializable {
 	private String idIMDB;		
 	
 	@Column(name="size_bytes")
-	private Integer sizeBytes;
+	private Long sizeBytes;
 
 	public Integer getId() {
 		return id;
@@ -134,11 +134,11 @@ public class Torrent implements Serializable {
 		this.idEZTV = idEZTV;
 	}
 
-	public Integer getSizeBytes() {
+	public Long getSizeBytes() {
 		return sizeBytes;
 	}
 
-	public void setSizeBytes(Integer sizeBytes) {
+	public void setSizeBytes(Long sizeBytes) {
 		this.sizeBytes = sizeBytes;
 	}
 	

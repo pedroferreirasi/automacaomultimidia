@@ -35,7 +35,7 @@ public class App {
 				System.out.println(
 						"***************************************************************************************************");
 				System.out.println(
-						"*                       Iniciando comunicação com API!!!                                          *");
+						"*                       Iniciando comunicação com API!!! (" + item.getTitulo() + ")               *");
 				System.out.println(
 						"***************************************************************************************************");
 				String urlString = "https://eztv.ag/api/get-torrents?imdb_id=" + item.getImdbid() + "&page1";
@@ -71,7 +71,7 @@ public class App {
 						entity.setIdEZTV(Integer.toString(result.getInt("id")));
 						entity.setFileName(result.getString("filename"));
 						entity.setMagnetURL(result.getString("magnet_url"));
-						entity.setSizeBytes(Integer.parseInt(result.getString("size_bytes")));
+						entity.setSizeBytes(Long.parseLong(result.getString("size_bytes")));
 						entity.setEpisodioURL(result.getString("episode_url"));
 						entity.setTorrentURL(result.getString("torrent_url"));
 						entity.setTitulo(result.getString("title"));
@@ -121,7 +121,10 @@ public class App {
 				for (Torrent torrent : listaTorrentsParaDownload) {
 					gravaArquivoDeURL(torrent.getTorrentURL());
 					System.out.println("Downloaded Torrent: " + torrent.getFileName());
-				}				
+				}	
+				
+				listaTodosTorrents.clear();
+				listaTorrentsParaDownload.clear();
 				
 				
 			}

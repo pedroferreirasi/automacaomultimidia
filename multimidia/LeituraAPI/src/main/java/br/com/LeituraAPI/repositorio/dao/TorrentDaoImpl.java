@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.LeituraAPI.modelo.Torrent;
@@ -20,6 +21,7 @@ public class TorrentDaoImpl extends HibernateDao<Torrent, Integer> {
 			session.beginTransaction();
 			Criteria criteria = session.createCriteria(getTypeClass());
 			criteria.add(Restrictions.eq("idEZTV", id));
+			criteria.addOrder(Order.asc("id"));
 			lista = criteria.list();
 			session.getTransaction().commit();
 		} catch (HibernateException e) {

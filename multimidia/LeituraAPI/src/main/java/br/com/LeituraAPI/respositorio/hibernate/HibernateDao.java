@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 
 public abstract class HibernateDao<T, PK extends Serializable> implements IDao<T, PK> {
 
@@ -74,7 +75,7 @@ public abstract class HibernateDao<T, PK extends Serializable> implements IDao<T
 		try {
 			session = HibernateSessionFactory.getSession();
 			session.beginTransaction();
-			lista = session.createCriteria(getTypeClass()).list(); 
+			lista = session.createCriteria(getTypeClass()).addOrder(Order.asc("id")).list();
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
 			session.getTransaction().rollback();
