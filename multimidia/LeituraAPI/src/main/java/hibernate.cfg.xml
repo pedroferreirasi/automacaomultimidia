@@ -18,6 +18,7 @@
 		<property name="hibernate.connection.release_mode">after_transaction</property>	
 		
 		<mapping class="br.com.LeituraAPI.modelo.Seriado" />
+		<mapping class="br.com.LeituraAPI.modelo.Torrent" />
 			
 	</session-factory>
 </hibernate-configuration>

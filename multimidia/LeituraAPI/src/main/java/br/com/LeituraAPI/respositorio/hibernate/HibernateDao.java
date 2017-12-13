@@ -9,7 +9,7 @@ import org.hibernate.Session;
 
 public abstract class HibernateDao<T, PK extends Serializable> implements IDao<T, PK> {
 
-	private Session session;
+	protected Session session;
 	
 	@Override
 	public void add(T entity) {

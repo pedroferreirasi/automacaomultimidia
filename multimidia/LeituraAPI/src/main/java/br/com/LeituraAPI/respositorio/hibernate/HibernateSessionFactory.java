@@ -14,7 +14,8 @@ public class HibernateSessionFactory {
 	public static SessionFactory getSessionFactory() {
 		
 		if (sessionFactory == null) {
-			return new Configuration().configure(FILE_CFG_HIBERNATE).buildSessionFactory();
+			sessionFactory = new Configuration().configure(FILE_CFG_HIBERNATE).buildSessionFactory();
+			return sessionFactory;
 		} else {
 			return sessionFactory;
 		}
