@@ -4,34 +4,40 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tb_temporada")
-public class Temporada implements Serializable {
+@Table(name="tb_torrent")
+public class Torrent implements Serializable {
+	
 
 	private static final long serialVersionUID = 1L;
 	
-	@Column(name="pk_seriado")
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="pk_torrent")
 	private Integer id;
 	
-	@Column(name="fk_seriado")
-	private String idSeriado;
+	@Column(name="fk_seriado", nullable=false)
+	private Integer idSeriado;
 	
-	@Column(name="temporada")
+	@Column(name="temporada", nullable=false)
 	private String temporada;
+	
+	@Column(name="episodio", nullable=false)
+	private String episodio;	
 
 	@Column(name="torrent_url")
 	private String torrentURL;
 	
 	@Column(name="magnet_url")
-	private String magnectURL;
-
+	private String magnetURL;		
+	
 	@Column(name="episode_url")
 	private String episodioURL;
-	
-	@Column(name="episodio")
-	private String episodio;
 	
 	@Column(name="filename")
 	private String fileName;
@@ -42,8 +48,11 @@ public class Temporada implements Serializable {
 	@Column(name="idEZTV")
 	private String idEZTV;
 	
+	@Column(name="idIMDB")
+	private String idIMDB;		
+	
 	@Column(name="size_bytes")
-	private String sizeBytes;
+	private Integer sizeBytes;
 
 	public Integer getId() {
 		return id;
@@ -53,11 +62,11 @@ public class Temporada implements Serializable {
 		this.id = id;
 	}
 
-	public String getIdSeriado() {
+	public Integer getIdSeriado() {
 		return idSeriado;
 	}
 
-	public void setIdSeriado(String idSeriado) {
+	public void setIdSeriado(Integer idSeriado) {
 		this.idSeriado = idSeriado;
 	}
 
@@ -77,12 +86,12 @@ public class Temporada implements Serializable {
 		this.torrentURL = torrentURL;
 	}
 
-	public String getMagnectURL() {
-		return magnectURL;
+	public String getMagnetURL() {
+		return magnetURL;
 	}
 
-	public void setMagnectURL(String magnectURL) {
-		this.magnectURL = magnectURL;
+	public void setMagnetURL(String magnetURL) {
+		this.magnetURL = magnetURL;
 	}
 
 	public String getEpisodioURL() {
@@ -125,14 +134,20 @@ public class Temporada implements Serializable {
 		this.idEZTV = idEZTV;
 	}
 
-	public String getSizeBytes() {
+	public Integer getSizeBytes() {
 		return sizeBytes;
 	}
 
-	public void setSizeBytes(String sizeBytes) {
+	public void setSizeBytes(Integer sizeBytes) {
 		this.sizeBytes = sizeBytes;
 	}
 	
-	
+	public String getIdIMDB() {
+		return idIMDB;
+	}
+
+	public void setIdIMDB(String idIMDB) {
+		this.idIMDB = idIMDB;
+	}	
 
 }
