@@ -119,7 +119,7 @@ public class App {
 						"***************************************************************************************************");
 			
 				for (Torrent torrent : listaTorrentsParaDownload) {
-					gravaArquivoDeURL(torrent.getTorrentURL(), "c:\\pedro\\");
+					gravaArquivoDeURL(torrent.getTorrentURL());
 					System.out.println("Downloaded Torrent: " + torrent.getFileName());
 				}				
 				
@@ -138,8 +138,15 @@ public class App {
 		}
 	}
 
-	public static File gravaArquivoDeURL(String stringUrl, String pathLocal) {
+	public static File gravaArquivoDeURL(String stringUrl) {
 		try {
+			String sistema = getSistemaOperacional();
+			String pathLocal = "";
+			if (sistema.equals("Windows 10")) {
+				pathLocal = "c:\\pedro\\torrent\\";
+			} else {
+				pathLocal = "//mnt//nasdownload//";				
+			}
 			// Encapsula a URL num objeto java.net.URL
 			URL url = new URL(stringUrl);
 
@@ -148,6 +155,8 @@ public class App {
 			// completa de diretorios e voce deve tratar esta String
 			// caso nao deseje preservar esta estrutura no seu disco local.
 			String nomeArquivoLocal = url.getPath();
+			nomeArquivoLocal = nomeArquivoLocal.substring(9,nomeArquivoLocal.length());
+			
 
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
@@ -182,5 +191,18 @@ public class App {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static Boolean pastaExiste(String pathLocal) {
+		File diretorio = new File(pathLocal); // ajfilho é uma pasta!
+		if (!diretorio.exists()) {
+		   return false;
+		} else {
+		   return true;
+		}
+	}
+	
+	public static String getSistemaOperacional() {
+		return System.getProperty("os.name");
 	}
 }
