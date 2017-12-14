@@ -62,10 +62,10 @@ public class App {
 				Integer epsode = Integer.parseInt(results.get(0).asJsonObject().getString("episode"));
 
 				List<Temporada> listaTemporada = temporadaDao.getAllBySeriado(item.getId());
+				
+				Boolean bTemEpisodioNovo = (season >= listaTemporada.get(0).getTemporada()) && (epsode > listaTemporada.get(0).getEpisodio());
 
-				if ((listaTemporada == null) || (listaTemporada.size() == 0)
-						|| (season >= listaTemporada.get(0).getTemporada())
-								&& (epsode > listaTemporada.get(0).getEpisodio())) {
+				if ((listaTemporada == null) || (listaTemporada.size() == 0) ||  (bTemEpisodioNovo)) {
 
 					System.out.println(
 							"***************************************************************************************************");
@@ -140,9 +140,7 @@ public class App {
 						temporada.setImdbid(torrent.getIdIMDB());
 						temporada.setSeriado(torrent.getIdSeriado());
 
-						// temporada.setTorrent(torrent.get);
 						temporadaDao.add(temporada);
-						System.out.println("Downloaded Torrent: " + torrent.getFileName());
 					}
 
 					listaTodosTorrents.clear();

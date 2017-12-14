@@ -27,12 +27,15 @@ public class TemporadaDaoImpl extends HibernateDao<Temporada, Integer> {
 			  
 			criteria.where(builder.equal(root.get("seriado"), idSeriado));
 			
+			criteria.orderBy(builder.desc(root.get("temporada")), builder.desc(root.get("episodio")) );
+			
 			lista = session.createQuery(criteria).getResultList();
 			
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
 			session.getTransaction().rollback();
 			e.printStackTrace();
+		} finally {
 		}			
 		return lista;
 	}
