@@ -2,10 +2,11 @@ package br.com.LeituraAPI.repositorio.dao;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.hibernate.HibernateException;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 
 import br.com.LeituraAPI.modelo.Temporada;
 import br.com.LeituraAPI.respositorio.hibernate.HibernateDao;
@@ -13,17 +14,21 @@ import br.com.LeituraAPI.respositorio.hibernate.HibernateSessionFactory;
 
 public class TemporadaDaoImpl extends HibernateDao<Temporada, Integer> {
 
-	@SuppressWarnings({ "unchecked", "deprecation" })
 	public List<Temporada> getAllBySeriado(Integer idSeriado) {
 		List<Temporada> lista = null;
 		try {
 			session = HibernateSessionFactory.getSession();
 			session.beginTransaction();
-			Criteria criteria = session.createCriteria(Temporada.class);
-			criteria.add(Restrictions.eqOrIsNull("seriado", idSeriado));
-			criteria.addOrder(Order.desc("temporada"));
-			criteria.addOrder(Order.desc("episodio"));
-			lista = criteria.list();
+			
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Temporada> criteria = builder.createQuery(Temporada.class);
+			
+			Root<Temporada> root = criteria.from(Temporada.class);
+			  
+			criteria.where(builder.equal(root.get("seriado"), idSeriado));
+			
+			lista = session.createQuery(criteria).getResultList();
+			
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
 			session.getTransaction().rollback();

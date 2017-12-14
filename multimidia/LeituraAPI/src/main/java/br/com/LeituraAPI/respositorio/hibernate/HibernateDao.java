@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.criterion.Order;
 
 public abstract class HibernateDao<T, PK extends Serializable> implements IDao<T, PK> {
 
@@ -68,14 +70,18 @@ public abstract class HibernateDao<T, PK extends Serializable> implements IDao<T
 		}		
 	}
 
-	@SuppressWarnings({ "deprecation", "unchecked" })
 	@Override
 	public List<T> getAll() {
 		List<T> lista = null;
 		try {
 			session = HibernateSessionFactory.getSession();
 			session.beginTransaction();
-			lista = session.createCriteria(getTypeClass()).addOrder(Order.asc("id")).list();
+			
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+		    CriteriaQuery<T> criteria = builder.createQuery(getTypeClass());
+		    criteria.from(getTypeClass());
+		    lista = session.createQuery(criteria).getResultList();
+			
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
 			session.getTransaction().rollback();
