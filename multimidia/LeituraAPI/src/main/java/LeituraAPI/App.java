@@ -13,9 +13,11 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
+import br.com.LeituraAPI.modelo.Auditoria;
 import br.com.LeituraAPI.modelo.Seriado;
 import br.com.LeituraAPI.modelo.Temporada;
 import br.com.LeituraAPI.modelo.Torrent;
+import br.com.LeituraAPI.repositorio.dao.AuditoriaDao;
 import br.com.LeituraAPI.repositorio.dao.SeriadoDaoImpl;
 import br.com.LeituraAPI.repositorio.dao.TemporadaDaoImpl;
 import br.com.LeituraAPI.repositorio.dao.TorrentDaoImpl;
@@ -149,6 +151,10 @@ public class App {
 				}
 
 			}
+			
+			Auditoria auditoria = new Auditoria();
+			AuditoriaDao auditoriaDao = new AuditoriaDao();
+			auditoriaDao.add(auditoria);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

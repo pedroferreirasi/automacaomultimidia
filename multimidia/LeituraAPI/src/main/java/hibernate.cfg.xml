@@ -20,6 +20,7 @@
 		<mapping class="br.com.LeituraAPI.modelo.Seriado" />
 		<mapping class="br.com.LeituraAPI.modelo.Torrent" />
 		<mapping class="br.com.LeituraAPI.modelo.Temporada" />
+		<mapping class="br.com.LeituraAPI.modelo.Auditoria" />
 			
 	</session-factory>
 </hibernate-configuration>
