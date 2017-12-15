@@ -27,7 +27,7 @@ public class Auditoria implements Serializable {
 	@Column(name="pk_log")
 	private int id;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="data")
 	private Date data;
 
