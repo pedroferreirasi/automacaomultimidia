@@ -31,6 +31,7 @@ public class App {
 		List<Torrent> listaTodosTorrents = new ArrayList<Torrent>();
 		List<Torrent> listaTorrentsParaDownload = new ArrayList<Torrent>();
 		Boolean bAchou = false;
+		Boolean bTemEpisodioNovo = false;
 
 		try {
 			List<Seriado> seriado = seriadoDao.getAll();
@@ -65,7 +66,11 @@ public class App {
 
 				List<Temporada> listaTemporada = temporadaDao.getAllBySeriado(item.getId());
 				
-				Boolean bTemEpisodioNovo = (season >= listaTemporada.get(0).getTemporada()) && (epsode > listaTemporada.get(0).getEpisodio());
+				if ((listaTemporada == null) || (listaTemporada.size() == 0)) {
+					bTemEpisodioNovo = true;
+				} else {
+					bTemEpisodioNovo = (season >= listaTemporada.get(0).getTemporada()) && (epsode > listaTemporada.get(0).getEpisodio());
+				}
 
 				if ((listaTemporada == null) || (listaTemporada.size() == 0) ||  (bTemEpisodioNovo)) {
 
