@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.HibernateException;
 
@@ -22,7 +23,8 @@ public class SeriadoDaoImpl extends HibernateDao<Seriado, Integer> {
 			
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 		    CriteriaQuery<Seriado> criteria = builder.createQuery(Seriado.class);
-		    criteria.from(Seriado.class);
+		    Root<Seriado> root = criteria.from(Seriado.class);
+		    criteria.where(builder.equal(root.get("ativo"), true));
 		    lista = session.createQuery(criteria).getResultList();
 			
 			session.getTransaction().commit();

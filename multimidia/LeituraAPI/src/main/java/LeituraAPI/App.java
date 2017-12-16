@@ -32,6 +32,7 @@ public class App {
 		List<Torrent> listaTorrentsParaDownload = new ArrayList<Torrent>();
 		Boolean bAchou = false;
 		Boolean bTemEpisodioNovo = false;
+		Integer j = 0;
 
 		try {
 			List<Seriado> seriado = seriadoDao.getAll();
@@ -39,11 +40,12 @@ public class App {
 			Temporada temporada = null;
 
 			for (Seriado item : seriado) {
+				j++;
 				System.out.println(
 						"***************************************************************************************************");
 				System.out.println("*                       Iniciando comunicação com API!!! (" + item.getTitulo()
 						+ ")               *");
-			    System.out.println("* " + item.getId() + "/" + seriado.size());
+			    System.out.println("* " + j + "/" + seriado.size());
 				System.out.println(
 						"***************************************************************************************************");
 				String urlString = "https://eztv.ag/api/get-torrents?imdb_id=" + item.getImdbid() + "&page1";
